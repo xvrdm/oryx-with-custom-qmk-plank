@@ -12,7 +12,7 @@
 #define DEBOUNCE 5
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "QJynB/6aG7NX"
+#define SERIAL_NUMBER "QJynB/pjMA9P"
 #define LAYER_STATE_16BIT
 #define COMBO_COUNT 8
 
