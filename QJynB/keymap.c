@@ -414,100 +414,11 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_4] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_4, dance_4_finished, dance_4_reset),
 };
 
-static bool app_switch_active = false;
-static bool app_e_pressed = false;
-static bool app_r_pressed = false;
-
-static void app_switch_start(void) {
-    if (!app_switch_active) {
-        add_weak_mods(MOD_BIT(KC_LGUI));
-        send_keyboard_report();
-        app_switch_active = true;
-    }
-}
-
-static void app_switch_stop(void) {
-    if (app_switch_active) {
-        del_weak_mods(MOD_BIT(KC_LGUI));
-        send_keyboard_report();
-        app_switch_active = false;
-    }
-}
-
-static bool shifted_backspace_pressed = false;
+#include "custom_features.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  // Shift + tap Backspace -> Forward Delete
-  // Hold Backspace -> Cmd (unchanged)
-  if (keycode == MT(MOD_LGUI, KC_BSPC)) {
-      if (!record->event.pressed &&
-          shifted_backspace_pressed) {
-          shifted_backspace_pressed = false;
-          return false;
-      }
-
-      if (record->event.pressed &&
-          record->tap.count &&
-          (get_mods() & MOD_MASK_SHIFT)) {
-
-          // Temporarily remove Shift so macOS receives
-          // an unmodified Forward Delete.
-          uint8_t saved_mods = get_mods();
-          del_mods(MOD_MASK_SHIFT);
-          send_keyboard_report();
-
-          tap_code(KC_DEL);
-
-          // Restore the held modifiers.
-          set_mods(saved_mods);
-          send_keyboard_report();
-
-          shifted_backspace_pressed = true;
-          return false;
-      }
-  }
-
-
-  // Layer 6: automatic Cmd + Tab / Shift+Tab
-  if (keycode == APP_NEXT || keycode == APP_PREV) {
-      if (record->event.pressed) {
-          app_switch_start();
-
-          if (keycode == APP_NEXT) {
-              tap_code(KC_TAB);
-          } else {
-              tap_code16(S(KC_TAB));
-          }
-      }
-      return false;
-  }
-
-  // Base layer: E/R while physically holding Cmd
-  if (keycode == KC_E || keycode == KC_R) {
-      bool *consumed = (keycode == KC_E)
-                       ? &app_e_pressed
-                       : &app_r_pressed;
-
-      if (!record->event.pressed) {
-          if (*consumed) {
-              *consumed = false;
-              return false;
-          }
-      } else if (get_mods() & MOD_MASK_GUI) {
-          if (keycode == KC_E) {
-              tap_code16(S(KC_TAB));
-          } else {
-              tap_code(KC_TAB);
-          }
-          *consumed = true;
-          return false;
-      }
-  }
-
-  // Cancel the layer-6 switcher before any other key.
-  if (record->event.pressed) {
-      app_switch_stop();
+  if (!custom_process_record(keycode, record)) {
+    return false;
   }
 
   switch (keycode) {
@@ -686,9 +597,7 @@ bool music_mask_user(uint16_t keycode) {
 
 
 uint16_t layer_state_set_user(uint16_t state) {
-    if (!(state & (1UL << _LAYER6))) {
-        app_switch_stop();
-    }
+    custom_layer_state_set(state);
 
     return update_tri_layer_state(
         state, _LOWER, _RAISE, _ADJUST
