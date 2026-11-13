@@ -41,11 +41,11 @@ enum planck_layers {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
-#define DUAL_FUNC_0 LT(13, KC_F11)
-#define DUAL_FUNC_1 LT(6, KC_F17)
-#define DUAL_FUNC_2 LT(11, KC_K)
-#define DUAL_FUNC_3 LT(4, KC_B)
-#define DUAL_FUNC_4 LT(4, KC_0)
+#define DUAL_FUNC_0 LT(6, KC_Y)
+#define DUAL_FUNC_1 LT(8, KC_7)
+#define DUAL_FUNC_2 LT(15, KC_E)
+#define DUAL_FUNC_3 LT(6, KC_U)
+#define DUAL_FUNC_4 LT(5, KC_T)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_planck_grid(
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM combo0[] = { KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM combo1[] = { LT(6, KC_F), KC_Q, COMBO_END};
-const uint16_t PROGMEM combo2[] = { MT(MOD_RCTL, KC_H), LT(6, KC_J), COMBO_END};
+const uint16_t PROGMEM combo2[] = { KC_A, MT(MOD_LGUI, KC_BSPC), COMBO_END};
 const uint16_t PROGMEM combo3[] = { LT(7, KC_K), KC_L, COMBO_END};
 const uint16_t PROGMEM combo4[] = { LT(6, KC_J), LT(7, KC_K), COMBO_END};
 const uint16_t PROGMEM combo5[] = { LT(6, KC_J), LT(7, KC_K), KC_L, COMBO_END};
@@ -132,7 +132,7 @@ const uint16_t PROGMEM combo7[] = { KC_KP_7, KC_KP_8, KC_KP_9, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, KC_TAB),
-    COMBO(combo2, KC_LEFT),
+    COMBO(combo2, OSL(4)),
     COMBO(combo3, TO(8)),
     COMBO(combo4, OSL(9)),
     COMBO(combo5, KC_ENTER),
