@@ -39,16 +39,16 @@ enum planck_layers {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
-#define DUAL_FUNC_0 LT(10, KC_E)
-#define DUAL_FUNC_1 LT(11, KC_F11)
-#define DUAL_FUNC_2 LT(11, KC_F16)
-#define DUAL_FUNC_3 LT(5, KC_9)
-#define DUAL_FUNC_4 LT(1, KC_C)
+#define DUAL_FUNC_0 LT(10, KC_J)
+#define DUAL_FUNC_1 LT(10, KC_W)
+#define DUAL_FUNC_2 LT(2, KC_H)
+#define DUAL_FUNC_3 LT(10, KC_4)
+#define DUAL_FUNC_4 LT(3, KC_F15)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_planck_grid(
     KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           RGB_TOG,        KC_TRANSPARENT, KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           
-    KC_A,           KC_S,           LT(7, KC_D),    LT(6, KC_F),    MT(MOD_LCTL, KC_G),KC_TRANSPARENT, KC_TRANSPARENT, MT(MOD_RCTL, KC_H),LT(6, KC_J),    LT(7, KC_K),    KC_L,           OSL(4),         
+    KC_A,           KC_S,           LT(7, KC_D),    LT(6, KC_F),    MT(MOD_LCTL, KC_G),KC_TRANSPARENT, KC_TRANSPARENT, MT(MOD_RCTL, KC_H),LT(6, KC_J),    LT(7, KC_K),    KC_L,           KC_SCLN,        
     MT(MOD_LSFT, KC_Z),KC_X,           KC_C,           LT(8, KC_V),    MT(MOD_LALT, KC_B),KC_TRANSPARENT, KC_TRANSPARENT, MT(MOD_RALT, KC_N),LT(5, KC_M),    KC_COMMA,       KC_DOT,         MT(MOD_LSFT, KC_SLASH),
     KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,MEH_T(KC_DELETE),MT(MOD_LGUI, KC_BSPC),KC_TRANSPARENT, KC_NO,          MT(MOD_LCTL, KC_SPACE),ALL_T(KC_ENTER),KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
